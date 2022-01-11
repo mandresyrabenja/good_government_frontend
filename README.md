@@ -1,4 +1,4 @@
-# good_government_mobile
+# GG: Good Government
 Signalisation des problèmes des citoyens pour le gouvernement
 
 ## Description
