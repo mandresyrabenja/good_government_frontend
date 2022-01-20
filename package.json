@@ -4,13 +4,17 @@
     "description": "A citizen problem report application by government",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve",
+        "start": "node server.js",
         "build": "ng build",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
         "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
-        "heroku-postbuild": "ng build — prod"
+        "heroku-postbuild": "ng build --configuration=production"
+    },
+    "engines": {
+        "node": "12.22.9",
+        "npm": "6.14.15"
     },
     "repository": {
         "type": "git",
@@ -79,6 +83,7 @@
         "path": "^0.12.7",
         "rxjs": "7.2.0",
         "tslib": "2.3.0",
+        "typescript": "4.3.5",
         "zone.js": "0.11.4"
     },
     "devDependencies": {
