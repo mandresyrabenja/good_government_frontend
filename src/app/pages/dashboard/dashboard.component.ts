@@ -138,9 +138,9 @@ export class DashboardComponent implements OnInit {
             zeroLineColor: "transparent",
           },
           ticks: {
-            suggestedMin: 60,
-            suggestedMax: 125,
-            padding: 20,
+            suggestedMin: 1,
+            suggestedMax: 10,
+            padding: 1,
             fontColor: "#9a9a9a"
           }
         }],
@@ -283,9 +283,9 @@ export class DashboardComponent implements OnInit {
             zeroLineColor: "transparent",
           },
           ticks: {
-            suggestedMin: 60,
-            suggestedMax: 120,
-            padding: 20,
+            suggestedMin: 1,
+            suggestedMax: 20,
+            padding: 2,
             fontColor: "#9e9e9e"
           }
         }],
@@ -308,9 +308,9 @@ export class DashboardComponent implements OnInit {
 
     var chart_labels = ['JAN', 'FEV', 'MAR', 'AVR', 'MAI', 'JUIN', 'JUL', 'AOU', 'SEP', 'OCT', 'NOV', 'DEC'];
     this.datasets = [
-      [100, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 100],
-      [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 120],
-      [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130]
+      [2, 3, 6, 4, 1, 2, 4, 3, 6, 5, 1, 2],
+      [4, 1, 3, 4, 7, 2, 4, 5, 1, 6, 8, 4],
+      [1, 7, 5, 4, 8, 5, 9, 3, 7, 5, 6, 3]
     ];
     this.data = this.datasets[0];
 
@@ -370,7 +370,7 @@ export class DashboardComponent implements OnInit {
       data: {
         labels: ['Antsinanana', 'Boeny', 'Analamanga', 'Matsiatra ambony', 'Atsimo andrefana', 'Alaotra mangoro'],
         datasets: [{
-          label: "Countries",
+          label: "Nombre des signalements",
           fill: true,
           backgroundColor: gradientStroke,
           hoverBackgroundColor: gradientStroke,
@@ -378,7 +378,7 @@ export class DashboardComponent implements OnInit {
           borderWidth: 2,
           borderDash: [],
           borderDashOffset: 0.0,
-          data: [53, 20, 10, 80, 100, 45],
+          data: [5, 7, 10, 13, 15, 18],
         }]
       },
       options: gradientBarChartConfiguration

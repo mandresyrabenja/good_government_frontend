@@ -1,3 +1,4 @@
+import { HttpService } from './services/http.service';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
@@ -13,7 +14,6 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { AppRoutingModule } from "./app-routing.module";
 import { ComponentsModule } from "./components/components.module";
 import { CrudRegionComponent } from './pages/crud-region/crud-region.component';
-
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -23,10 +23,11 @@ import { CrudRegionComponent } from './pages/crud-region/crud-region.component';
     NgbModule,
     RouterModule,
     AppRoutingModule,
+    HttpClientModule,
     ToastrModule.forRoot()
   ],
   declarations: [AppComponent, AdminLayoutComponent, CrudRegionComponent],
-  providers: [],
+  providers: [HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
