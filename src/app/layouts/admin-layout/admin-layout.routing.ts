@@ -1,3 +1,4 @@
+import { CrudRegionComponent } from './../../pages/crud-region/crud-region.component';
 import { Routes } from "@angular/router";
 
 import { DashboardComponent } from "../../pages/dashboard/dashboard.component";
@@ -17,5 +18,6 @@ export const AdminLayoutRoutes: Routes = [
   { path: "user", component: UserComponent },
   { path: "tables", component: TablesComponent },
   { path: "typography", component: TypographyComponent },
+  {path: "crud-region", component: CrudRegionComponent}
   // { path: "rtl", component: RtlComponent }
 ];
