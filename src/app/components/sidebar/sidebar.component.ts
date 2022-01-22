@@ -12,6 +12,48 @@ export const ROUTES: RouteInfo[] = [
     title: "Statistiques",
     icon: "icon-chart-pie-36",
     class: ""
+  },
+  {
+    path: "/crud-region",
+    title: "Régions",
+    icon: "icon-world",
+    class: ""
+  },
+  {
+    path: "/icons",
+    title: "Icons",
+    icon: "icon-atom",
+    class: ""
+  },
+  {
+    path: "/maps",
+    title: "Maps",
+    icon: "icon-world",
+    class: ""
+  },
+  {
+    path: "/notifications",
+    title: "Notification",
+    icon: "icon-bell-55",
+    class: ""
+  },
+  {
+    path: "/user",
+    title: "User",
+    icon: "icon-single-02",
+    class: ""
+  },
+  {
+    path: "/tables",
+    title: "Table",
+    icon: "icon-puzzle-10",
+    class: ""
+  },
+  {
+    path: "/typography",
+    title: "Typography",
+    icon: "icon-align-center",
+    class: ""
   }
 ];
 
