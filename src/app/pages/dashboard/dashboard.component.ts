@@ -1,5 +1,8 @@
+import { MonthlyReport } from './../../interface/monthly-report';
+import { StatisticService } from './../../services/statistic.service';
 import { Component, OnInit } from "@angular/core";
 import Chart from 'chart.js';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: "app-dashboard",
@@ -14,6 +17,9 @@ export class DashboardComponent implements OnInit {
   public clicked: boolean = true;
   public clicked1: boolean = false;
   public clicked2: boolean = false;
+  public monthlyReports: any[];
+
+  constructor(private statisticService : StatisticService) {}
 
   ngOnInit() {
     var gradientChartOptionsConfigurationWithTooltipBlue: any = {
@@ -314,8 +320,6 @@ export class DashboardComponent implements OnInit {
     ];
     this.data = this.datasets[0];
 
-
-
     this.canvas = document.getElementById("chartBig1");
     this.ctx = this.canvas.getContext("2d");
 
@@ -388,5 +392,17 @@ export class DashboardComponent implements OnInit {
   public updateOptions() {
     this.myChartData.data.datasets[0].data = this.data;
     this.myChartData.update();
+  }
+
+  public getLastYearMonthlyReportsNumber(): void {
+    this.statisticService.getLastYearMonthlyReportsNumber().subscribe(
+      (response: MonthlyReport[]) => {
+        this.monthlyReports = response;
+        console.log(this.monthlyReports);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
 }
