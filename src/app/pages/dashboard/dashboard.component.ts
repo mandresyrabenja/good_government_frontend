@@ -2,7 +2,6 @@ import { MonthlyReport } from './../../interface/monthly-report';
 import { StatisticService } from './../../services/statistic.service';
 import { Component, OnInit } from "@angular/core";
 import Chart from 'chart.js';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: "app-dashboard",
@@ -17,11 +16,16 @@ export class DashboardComponent implements OnInit {
   public clicked: boolean = true;
   public clicked1: boolean = false;
   public clicked2: boolean = false;
-  public monthlyReports: any[];
+  public monthlyReports: MonthlyReport[];
+  public newReportNb: number[] = [];
+  public processingReportNb: number[] = [];
+  public doneReportNb: number[] = [];
 
   constructor(private statisticService : StatisticService) {}
 
   ngOnInit() {
+
+    // Test configuration graphe chartjs
     var gradientChartOptionsConfigurationWithTooltipBlue: any = {
       maintainAspectRatio: false,
       legend: {
@@ -70,6 +74,7 @@ export class DashboardComponent implements OnInit {
       }
     };
 
+    // Test configuration graphe chartjs
     var gradientChartOptionsConfigurationWithTooltipPurple: any = {
       maintainAspectRatio: false,
       legend: {
@@ -118,54 +123,7 @@ export class DashboardComponent implements OnInit {
       }
     };
 
-    var gradientChartOptionsConfigurationWithTooltipRed: any = {
-      maintainAspectRatio: false,
-      legend: {
-        display: false
-      },
-
-      tooltips: {
-        backgroundColor: '#f5f5f5',
-        titleFontColor: '#333',
-        bodyFontColor: '#666',
-        bodySpacing: 4,
-        xPadding: 12,
-        mode: "nearest",
-        intersect: 0,
-        position: "nearest"
-      },
-      responsive: true,
-      scales: {
-        yAxes: [{
-          barPercentage: 1.6,
-          gridLines: {
-            drawBorder: false,
-            color: 'rgba(29,140,248,0.0)',
-            zeroLineColor: "transparent",
-          },
-          ticks: {
-            suggestedMin: 1,
-            suggestedMax: 10,
-            padding: 1,
-            fontColor: "#9a9a9a"
-          }
-        }],
-
-        xAxes: [{
-          barPercentage: 1.6,
-          gridLines: {
-            drawBorder: false,
-            color: 'rgba(233,32,16,0.1)',
-            zeroLineColor: "transparent",
-          },
-          ticks: {
-            padding: 20,
-            fontColor: "#9a9a9a"
-          }
-        }]
-      }
-    };
-
+    // Test configuration graphe chartjs
     var gradientChartOptionsConfigurationWithTooltipOrange: any = {
       maintainAspectRatio: false,
       legend: {
@@ -214,6 +172,7 @@ export class DashboardComponent implements OnInit {
       }
     };
 
+    // Test configuration graphe chartjs
     var gradientChartOptionsConfigurationWithTooltipGreen: any = {
       maintainAspectRatio: false,
       legend: {
@@ -262,7 +221,112 @@ export class DashboardComponent implements OnInit {
       }
     };
 
+    //Configuration du courbe chartjs du nombre mensuel des signalements l'année dernière
+    var gradientChartOptionsConfigurationWithTooltipRed: any = {
+      maintainAspectRatio: false,
+      legend: {
+        display: false
+      },
 
+      tooltips: {
+        backgroundColor: '#f5f5f5',
+        titleFontColor: '#333',
+        bodyFontColor: '#666',
+        bodySpacing: 4,
+        xPadding: 12,
+        mode: "nearest",
+        intersect: 0,
+        position: "nearest"
+      },
+      responsive: true,
+      scales: {
+        yAxes: [{
+          barPercentage: 1.6,
+          gridLines: {
+            drawBorder: false,
+            color: 'rgba(29,140,248,0.0)',
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            suggestedMin: 1,
+            suggestedMax: 10,
+            padding: 1,
+            fontColor: "#9a9a9a"
+          }
+        }],
+
+        xAxes: [{
+          barPercentage: 1.6,
+          gridLines: {
+            drawBorder: false,
+            color: 'rgba(233,32,16,0.1)',
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            padding: 20,
+            fontColor: "#9a9a9a"
+          }
+        }]
+      }
+    };
+
+    // Label du de l'axe x du courbe
+    var chart_labels = ['JAN', 'FEV', 'MAR', 'AVR', 'MAI', 'JUIN', 'JUL', 'AOU', 'SEP', 'OCT', 'NOV', 'DEC'];
+
+    this.statisticService.getLastYearMonthlyReportsNumber().subscribe(
+      (response : MonthlyReport[]) => {
+        this.monthlyReports = response;
+
+        for(let i = 0; i < this.monthlyReports.length; i++) {
+          this.newReportNb[i] = this.monthlyReports[i].newReportNb;
+          this.processingReportNb[i] = this.monthlyReports[i].processingReportNb;
+          this.doneReportNb[i] = this.monthlyReports[i].doneReportNb;
+        }
+
+        // Datasets des courbes des signalements nouveaux, en cours de traitement et fini
+        this.datasets = [ this.newReportNb, this.processingReportNb, this.doneReportNb ];
+        this.data = this.datasets[0];
+
+        // Elemnt HTML pour dessiner le courbe
+        this.canvas = document.getElementById("chartBig1");
+        this.ctx = this.canvas.getContext("2d");
+
+        // Couleur du courbe chartjs
+        var gradientStroke = this.ctx.createLinearGradient(0, 230, 0, 50);
+        gradientStroke.addColorStop(1, 'rgba(233,32,16,0.2)');
+        gradientStroke.addColorStop(0.4, 'rgba(233,32,16,0.0)');
+        gradientStroke.addColorStop(0, 'rgba(233,32,16,0)'); //red colors
+
+        // Dessin du courbe chartjs
+        var config = {
+          type: 'line',
+          data: {
+            labels: chart_labels,
+            datasets: [{
+              label: "Nombre des signalements",
+              fill: true,
+              backgroundColor: gradientStroke,
+              borderColor: '#ec250d',
+              borderWidth: 2,
+              borderDash: [],
+              borderDashOffset: 0.0,
+              pointBackgroundColor: '#ec250d',
+              pointBorderColor: 'rgba(255,255,255,0)',
+              pointHoverBackgroundColor: '#ec250d',
+              pointBorderWidth: 20,
+              pointHoverRadius: 4,
+              pointHoverBorderWidth: 15,
+              pointRadius: 4,
+              data: this.data,
+            }]
+          },
+          options: gradientChartOptionsConfigurationWithTooltipRed
+        };
+        this.myChartData = new Chart(this.ctx, config);
+      }
+    );
+
+    // Configuration du diagramme chartjs contenant les top 6 des régions qui ont le plus des signalements
     var gradientBarChartConfiguration: any = {
       maintainAspectRatio: false,
       legend: {
@@ -311,60 +375,17 @@ export class DashboardComponent implements OnInit {
       }
     };
 
-
-    var chart_labels = ['JAN', 'FEV', 'MAR', 'AVR', 'MAI', 'JUIN', 'JUL', 'AOU', 'SEP', 'OCT', 'NOV', 'DEC'];
-    this.datasets = [
-      [2, 3, 6, 4, 1, 2, 4, 3, 6, 5, 1, 2],
-      [4, 1, 3, 4, 7, 2, 4, 5, 1, 6, 8, 4],
-      [1, 7, 5, 4, 8, 5, 9, 3, 7, 5, 6, 3]
-    ];
-    this.data = this.datasets[0];
-
-    this.canvas = document.getElementById("chartBig1");
-    this.ctx = this.canvas.getContext("2d");
-
-    var gradientStroke = this.ctx.createLinearGradient(0, 230, 0, 50);
-
-    gradientStroke.addColorStop(1, 'rgba(233,32,16,0.2)');
-    gradientStroke.addColorStop(0.4, 'rgba(233,32,16,0.0)');
-    gradientStroke.addColorStop(0, 'rgba(233,32,16,0)'); //red colors
-
-    var config = {
-      type: 'line',
-      data: {
-        labels: chart_labels,
-        datasets: [{
-          label: "Nombre des signalements",
-          fill: true,
-          backgroundColor: gradientStroke,
-          borderColor: '#ec250d',
-          borderWidth: 2,
-          borderDash: [],
-          borderDashOffset: 0.0,
-          pointBackgroundColor: '#ec250d',
-          pointBorderColor: 'rgba(255,255,255,0)',
-          pointHoverBackgroundColor: '#ec250d',
-          pointBorderWidth: 20,
-          pointHoverRadius: 4,
-          pointHoverBorderWidth: 15,
-          pointRadius: 4,
-          data: this.data,
-        }]
-      },
-      options: gradientChartOptionsConfigurationWithTooltipRed
-    };
-    this.myChartData = new Chart(this.ctx, config);
-
-
+    // Récuperation de l'élément HTML où on va dessiner le diagramme
     this.canvas = document.getElementById("CountryChart");
     this.ctx  = this.canvas.getContext("2d");
-    var gradientStroke = this.ctx.createLinearGradient(0, 230, 0, 50);
 
+    // Coleur en gradient du diagramme
+    var gradientStroke = this.ctx.createLinearGradient(0, 230, 0, 50);
     gradientStroke.addColorStop(1, 'rgba(29,140,248,0.2)');
     gradientStroke.addColorStop(0.4, 'rgba(29,140,248,0.0)');
     gradientStroke.addColorStop(0, 'rgba(29,140,248,0)'); //blue colors
 
-
+    // Dessiner le diagramme chartjs
     var myChart = new Chart(this.ctx, {
       type: 'bar',
       responsive: true,
@@ -389,20 +410,9 @@ export class DashboardComponent implements OnInit {
     });
 
   }
+
   public updateOptions() {
     this.myChartData.data.datasets[0].data = this.data;
     this.myChartData.update();
-  }
-
-  public getLastYearMonthlyReportsNumber(): void {
-    this.statisticService.getLastYearMonthlyReportsNumber().subscribe(
-      (response: MonthlyReport[]) => {
-        this.monthlyReports = response;
-        console.log(this.monthlyReports);
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
   }
 }

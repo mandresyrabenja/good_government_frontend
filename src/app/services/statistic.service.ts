@@ -1,5 +1,6 @@
+import { environment } from './../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 import { MonthlyReport } from './../interface/monthly-report';
-import { HttpService } from './http.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -8,14 +9,15 @@ import { Observable } from 'rxjs';
  */
 @Injectable()
 export class StatisticService {
+  private baseUrl = environment.baseUrl;
 
-  constructor(private httpService : HttpService) {}
+  constructor(private http : HttpClient) {}
 
   /**
    * Avoir le nombre des signalement par régions mensuelle de l'année dernière
    */
   getLastYearMonthlyReportsNumber(): Observable<MonthlyReport[]> {
-    return this.httpService.http.get<MonthlyReport[]>( this.httpService.baseUrl + '/reports/last-year-monthly-report-nb' );
+    return this.http.get<MonthlyReport[]>( this.baseUrl + '/monthlyreports/last-year' );
   }
 
 }

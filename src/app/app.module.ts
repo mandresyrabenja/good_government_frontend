@@ -1,4 +1,3 @@
-import { HttpService } from './services/http.service';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
@@ -31,7 +30,6 @@ import { AssignReportComponent } from './pages/assign-report/assign-report.compo
   ],
   declarations: [AppComponent, AdminLayoutComponent, CrudRegionComponent,AssignReportComponent],
   providers: [
-    HttpService,
     StatisticService,
     {
       provide: HTTP_INTERCEPTORS,
