@@ -1,3 +1,4 @@
+import { TopKeyword } from './../../interface/top-keyword';
 import { MonthlyReport } from './../../interface/monthly-report';
 import { StatisticService } from './../../services/statistic.service';
 import { Component, OnInit } from "@angular/core";
@@ -20,6 +21,7 @@ export class DashboardComponent implements OnInit {
   public newReportNb: number[] = [];
   public processingReportNb: number[] = [];
   public doneReportNb: number[] = [];
+  public mostRepetitiveKeywords;
 
   constructor(private statisticService : StatisticService) {}
 
@@ -323,6 +325,14 @@ export class DashboardComponent implements OnInit {
           options: gradientChartOptionsConfigurationWithTooltipRed
         };
         this.myChartData = new Chart(this.ctx, config);
+      }
+    );
+
+    this.statisticService.getTop5MostRepetitiveKeywords().subscribe(
+      (response: any) => {
+          this.mostRepetitiveKeywords = Object.entries(response);
+          this.mostRepetitiveKeywords = this.mostRepetitiveKeywords.sort((a, b) => b[1] - a[1]);
+          console.log(this.mostRepetitiveKeywords);
       }
     );
 

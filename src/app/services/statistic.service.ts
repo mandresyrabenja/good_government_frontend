@@ -1,3 +1,4 @@
+import { TopKeyword } from './../interface/top-keyword';
 import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { MonthlyReport } from './../interface/monthly-report';
@@ -16,8 +17,15 @@ export class StatisticService {
   /**
    * Avoir le nombre des signalement par régions mensuelle de l'année dernière
    */
-  getLastYearMonthlyReportsNumber(): Observable<MonthlyReport[]> {
+   getLastYearMonthlyReportsNumber(): Observable<MonthlyReport[]> {
     return this.http.get<MonthlyReport[]>( this.baseUrl + '/monthlyreports/last-year' );
+  }
+
+  /**
+   * Avoir le top 5 des mots clés les plus fréquents
+   */
+   getTop5MostRepetitiveKeywords(): Observable<any> {
+    return this.http.get<any>( this.baseUrl + '/reports/most-repetitive-keywords' );
   }
 
 }
