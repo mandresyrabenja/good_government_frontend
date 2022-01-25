@@ -17,6 +17,7 @@ import { CrudRegionComponent } from './pages/crud-region/crud-region.component';
 import { StatisticService } from './services/statistic.service';
 import { AuthInterceptor } from './services/auth-interceptor.service';
 
+import { AssignReportComponent } from './pages/assign-report/assign-report.component';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -28,7 +29,7 @@ import { AuthInterceptor } from './services/auth-interceptor.service';
     AppRoutingModule,
     ToastrModule.forRoot()
   ],
-  declarations: [AppComponent, AdminLayoutComponent, CrudRegionComponent],
+  declarations: [AppComponent, AdminLayoutComponent, CrudRegionComponent,AssignReportComponent],
   providers: [
     HttpService,
     StatisticService,
