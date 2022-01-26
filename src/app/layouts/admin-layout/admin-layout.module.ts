@@ -1,5 +1,4 @@
 import { NgModule } from "@angular/core";
-import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
@@ -12,7 +11,6 @@ import { NotificationsComponent } from "../../pages/notifications/notifications.
 import { UserComponent } from "../../pages/user/user.component";
 import { TablesComponent } from "../../pages/tables/tables.component";
 import { TypographyComponent } from "../../pages/typography/typography.component";
-// import { RtlComponent } from "../../pages/rtl/rtl.component";
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
@@ -21,8 +19,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
-    HttpClientModule,
-    NgbModule,
+    NgbModule
   ],
   declarations: [
     DashboardComponent,
@@ -31,8 +28,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     IconsComponent,
     TypographyComponent,
     NotificationsComponent,
-    MapComponent,
-    // RtlComponent
+    MapComponent
   ]
 })
 export class AdminLayoutModule {}
