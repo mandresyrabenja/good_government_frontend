@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
   public processingReportNb: number[] = [];
   public doneReportNb: number[] = [];
   public mostRepetitiveKeywords;
+  public top6RegionWithMostReport;
 
   constructor(private statisticService : StatisticService) {}
 
@@ -332,7 +333,6 @@ export class DashboardComponent implements OnInit {
       (response: any) => {
           this.mostRepetitiveKeywords = Object.entries(response);
           this.mostRepetitiveKeywords = this.mostRepetitiveKeywords.sort((a, b) => b[1] - a[1]);
-          console.log(this.mostRepetitiveKeywords);
       }
     );
 
@@ -385,40 +385,54 @@ export class DashboardComponent implements OnInit {
       }
     };
 
-    // Récuperation de l'élément HTML où on va dessiner le diagramme
-    this.canvas = document.getElementById("CountryChart");
-    this.ctx  = this.canvas.getContext("2d");
+    this.statisticService.getTop6RegionWithMostReport().subscribe(
+      (response: any) => {
+        this.top6RegionWithMostReport = Object.entries(response);
+        this.top6RegionWithMostReport = this.top6RegionWithMostReport.sort((a, b) => a[1] - b[1]);
 
-    // Coleur en gradient du diagramme
-    var gradientStroke = this.ctx.createLinearGradient(0, 230, 0, 50);
-    gradientStroke.addColorStop(1, 'rgba(29,140,248,0.2)');
-    gradientStroke.addColorStop(0.4, 'rgba(29,140,248,0.0)');
-    gradientStroke.addColorStop(0, 'rgba(29,140,248,0)'); //blue colors
+        let regionNames : string[] = [];
+        let regionReportNumbers : number[] = [];
 
-    // Dessiner le diagramme chartjs
-    var myChart = new Chart(this.ctx, {
-      type: 'bar',
-      responsive: true,
-      legend: {
-        display: false
-      },
-      data: {
-        labels: ['Antsinanana', 'Boeny', 'Analamanga', 'Matsiatra ambony', 'Atsimo andrefana', 'Alaotra mangoro'],
-        datasets: [{
-          label: "Nombre des signalements",
-          fill: true,
-          backgroundColor: gradientStroke,
-          hoverBackgroundColor: gradientStroke,
-          borderColor: '#1f8ef1',
-          borderWidth: 2,
-          borderDash: [],
-          borderDashOffset: 0.0,
-          data: [5, 7, 10, 13, 15, 18],
-        }]
-      },
-      options: gradientBarChartConfiguration
-    });
+        for(let i = 0; i < this.top6RegionWithMostReport.length; i++) {
+          regionNames[i] = this.top6RegionWithMostReport[i][0];
+          regionReportNumbers[i] = this.top6RegionWithMostReport[i][1];
+        }
 
+        // Récuperation de l'élément HTML où on va dessiner le diagramme
+        this.canvas = document.getElementById("CountryChart");
+        this.ctx  = this.canvas.getContext("2d");
+
+        // Coleur en gradient du diagramme
+        var gradientStroke = this.ctx.createLinearGradient(0, 230, 0, 50);
+        gradientStroke.addColorStop(1, 'rgba(29,140,248,0.2)');
+        gradientStroke.addColorStop(0.4, 'rgba(29,140,248,0.0)');
+        gradientStroke.addColorStop(0, 'rgba(29,140,248,0)'); //blue colors
+
+        // Dessiner le diagramme chartjs
+        var myChart = new Chart(this.ctx, {
+          type: 'bar',
+          responsive: true,
+          legend: {
+            display: false
+          },
+          data: {
+            labels: regionNames,
+            datasets: [{
+              label: "Nombre des signalements",
+              fill: true,
+              backgroundColor: gradientStroke,
+              hoverBackgroundColor: gradientStroke,
+              borderColor: '#1f8ef1',
+              borderWidth: 2,
+              borderDash: [],
+              borderDashOffset: 0.0,
+              data: regionReportNumbers,
+            }]
+          },
+          options: gradientBarChartConfiguration
+        });
+      }
+    );
   }
 
   public updateOptions() {

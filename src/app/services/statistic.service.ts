@@ -28,4 +28,10 @@ export class StatisticService {
     return this.http.get<any>( this.baseUrl + '/reports/most-repetitive-keywords' );
   }
 
+  /**
+   * Avoir le top 6 des régions qui ont les plus des signalements
+   */
+   getTop6RegionWithMostReport(): Observable<any> {
+    return this.http.get<any>( this.baseUrl + '/reports/top6-region-with-most-report' );
+  }
 }
