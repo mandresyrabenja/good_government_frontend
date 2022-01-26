@@ -8,55 +8,55 @@ declare interface RouteInfo {
 }
 export const ROUTES: RouteInfo[] = [
   {
-    path: "/statistic",
+    path: "statistic",
     title: "Statistiques",
     icon: "icon-chart-pie-36",
     class: ""
   },
   {
-    path: "/crud-region",
+    path: "crud-region",
     title: "Régions",
     icon: "icon-world",
     class: ""
   },
   {
-    path: "/assign-report",
+    path: "assign-report",
     title: "Signalements",
     icon: "icon-bell-55",
     class: ""
   },
   {
-    path: "/icons",
+    path: "icons",
     title: "Icons",
     icon: "icon-atom",
     class: ""
   },
   {
-    path: "/maps",
+    path: "maps",
     title: "Maps",
     icon: "icon-world",
     class: ""
   },
   {
-    path: "/notifications",
+    path: "notifications",
     title: "Notification",
     icon: "icon-bell-55",
     class: ""
   },
   {
-    path: "/user",
+    path: "user",
     title: "User",
     icon: "icon-single-02",
     class: ""
   },
   {
-    path: "/tables",
+    path: "tables",
     title: "Table",
     icon: "icon-puzzle-10",
     class: ""
   },
   {
-    path: "/typography",
+    path: "typography",
     title: "Typography",
     icon: "icon-align-center",
     class: ""

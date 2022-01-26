@@ -1,0 +1,31 @@
+<div class="wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+
+                <div class="loginBox">
+                    <img class="user" src="https://i.ibb.co/yVGxFPR/2.png" height="100px" width="100px">
+                    <h3>Se connecter</h3>
+                    <form (ngSubmit)="login(f)" role="form" #f="ngForm">
+                        <div class="inputBox">
+                            <div class="form-group">
+                                <label for="username">Login</label>
+                                <input type="text" class="form-control" id="username" name="username" required ngModel>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Mot de passe</label>
+                                <input type="password" name="password" id="password" class="form-control" required ngModel>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary">Connecter</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+</div>

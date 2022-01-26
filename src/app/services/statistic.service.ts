@@ -1,4 +1,3 @@
-import { TopKeyword } from './../interface/top-keyword';
 import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { MonthlyReport } from './../interface/monthly-report';
