@@ -17,6 +17,9 @@ import { StatisticService } from './services/statistic.service';
 import { AuthInterceptor } from './services/auth-interceptor.service';
 
 import { AssignReportComponent } from './pages/assign-report/assign-report.component';
+import { LoginComponent } from './layouts/login/login.component';
+import { AuthService } from "./services/auth.service";
+import AuthGuard from "./services/auth-guard.service";
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -28,9 +31,11 @@ import { AssignReportComponent } from './pages/assign-report/assign-report.compo
     AppRoutingModule,
     ToastrModule.forRoot()
   ],
-  declarations: [AppComponent, AdminLayoutComponent, CrudRegionComponent,AssignReportComponent],
+  declarations: [AppComponent, AdminLayoutComponent, CrudRegionComponent,AssignReportComponent, LoginComponent],
   providers: [
     StatisticService,
+    AuthService,
+    AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
