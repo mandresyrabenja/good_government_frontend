@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
       '',
       {
         enableHtml: true,
-        closeButton: true,
+        closeButton: false,
         toastClass: "alert alert-danger alert-with-icon",
         positionClass: 'toast-top-center'
       }

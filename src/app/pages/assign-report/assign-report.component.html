@@ -10,29 +10,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>01-05-2022</td>
-                        <td>Tapaka ny JIRO</td>
+                    <tr *ngFor="let report of nonAssignedReports; index as i">
+                        <td>{{ report.date }}</td>
+                        <td>{{ report.title }}</td>
                         <td class="td-actions">
-                            <button type="button" rel="tooltip" class="btn btn-success btn-link btn-icon btn-s">
-                            <i class="tim-icons icon-send"></i>
-                          </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>01-05-2022</td>
-                        <td>Simba ny lalana</td>
-                        <td class="td-actions">
-                            <button type="button" rel="tooltip" class="btn btn-success btn-link btn-icon btn-s">
-                            <i class="tim-icons icon-send"></i>
-                          </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>01-05-2022</td>
-                        <td>Fako</td>
-                        <td class="td-actions">
-                            <button type="button" rel="tooltip" class="btn btn-success btn-link btn-icon btn-s">
+                            <button type="button" (click)="reportDetails(i, content)" rel="tooltip" class="btn btn-success btn-link btn-icon btn-s">
                             <i class="tim-icons icon-send"></i>
                           </button>
                         </td>
@@ -42,3 +24,28 @@
         </div>
     </div>
 </div>
+
+<ng-template #content let-modal>
+    <div class=" modal-header bg-dark">
+        Attribuer le signalement à une région
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="modal.dismiss('Cross click')">
+          <i class=" tim-icons icon-simple-remove"> </i>
+        </button>
+    </div>
+    <div class="modal-body bg-dark">
+        <div class="card">
+            <img [src]="imageToShow" class="card-img-top" alt="Photo" height="250" width="200" *ngIf="!isImageLoading; else noImageFound">
+            <div class="card-body">
+                <h4 class="card-title">{{ actualReport.title }}</h4>
+                <p class="card-text text-light">{{ actualReport.description }}</p>
+                <button class="btn btn-success animation-on-hover">
+                Attribuer
+              </button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #noImageFound>
+    <img data-src="holder.js/100px180/" alt="Card image cap" />
+</ng-template>
