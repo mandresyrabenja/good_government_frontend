@@ -20,6 +20,7 @@ import { AssignReportComponent } from './pages/assign-report/assign-report.compo
 import { LoginComponent } from './layouts/login/login.component';
 import { AuthService } from "./services/auth.service";
 import AuthGuard from "./services/auth-guard.service";
+import { ReportService } from "./services/report.service";
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -36,6 +37,7 @@ import AuthGuard from "./services/auth-guard.service";
     StatisticService,
     AuthService,
     AuthGuard,
+    ReportService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
