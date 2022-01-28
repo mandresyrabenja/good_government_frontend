@@ -10,6 +10,14 @@ export class ReportService {
 
   constructor(private http: HttpClient) {}
 
+  assignReport(reportId, regionId) :Observable<any> {
+    return this.http.put(this.baseUrl + "/reports/" + reportId + "?regionId=" + regionId, {});
+  }
+
+  getAllRegions(): Observable<any[]> {
+    return this.http.get<any[]>(this.baseUrl + "/regions");
+  }
+
   /**
    * Avoir les signalements pas encore attribué à une région
    */

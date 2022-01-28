@@ -38,9 +38,23 @@
             <div class="card-body">
                 <h4 class="card-title">{{ actualReport.title }}</h4>
                 <p class="card-text text-light">{{ actualReport.description }}</p>
-                <button class="btn btn-success animation-on-hover">
-                Attribuer
-              </button>
+                <form (ngSubmit)="affectReport(f)" role="form" #f="ngForm">
+                    <div class="inputBox">
+                        <div class="form-group">
+                            <label for="region">Région</label>
+                            <select class="form-control bg-dark" id="region" name="region" required ngModel>
+                              <option *ngFor="let r of regions;index as i" [value]="r.id">
+                                <p class="txt-dark">{{r.name}}</p>
+                              </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-success animation-on-hover" type="submit">
+                    Attribuer
+                  </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

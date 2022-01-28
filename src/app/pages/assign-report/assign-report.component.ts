@@ -1,3 +1,4 @@
+import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Report } from './../../interface/report';
 import { Component, OnInit } from '@angular/core';
@@ -14,6 +15,28 @@ export class AssignReportComponent implements OnInit {
   closeResult: string;
   imageToShow: any;
   isImageLoading = false;
+  regions : any[];
+  regionId: any;
+  modalReference: any;
+
+  affectReport(form : NgForm) {
+    this.reportService.assignReport(this.actualReport.id, form.value.region).subscribe(
+      res => {
+        this.reportService.getNonAssignedReport().subscribe(
+          (response: Report[]) => {
+            this.nonAssignedReports = response;
+            this.modalReference.close();
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error.message);
+          }
+        );
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    );
+  }
 
   /**
    * Créer une image à partir d'un fichier obtenu à partir d'une requête HTTP
@@ -62,6 +85,14 @@ export class AssignReportComponent implements OnInit {
       }
     );
 
+    this.reportService.getAllRegions().subscribe(
+      (response : any[]) => {
+        this.regions = response;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    );
   }
 
   /**
@@ -76,16 +107,15 @@ export class AssignReportComponent implements OnInit {
   }
 
   open(content) {
-    this
-      .modalService.open(content, {centered: false, size: 'md'})
-      .result.then(
-        (result) => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        (reason) => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
+    this.modalReference = this.modalService.open(content, {centered: false, size: 'md'});
+    this.modalReference.result.then(
+      (result) => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
   }
 
   private getDismissReason(reason: any): string {
