@@ -33,6 +33,50 @@ export class CrudRegionComponent implements OnInit {
   }
 
   /**
+   * Effacer un région
+   * @param i Indice du région au tableau des régions
+   */
+  deleteRegion(i : number) {
+    this.regionService.deleteRegion(this.regions[i].id)
+    .subscribe(
+      (response) => {
+        this.toastr.success(
+          '<span class="tim-icons icon-check-2" [data-notify]="icon"></span> Région supprimé',
+          '',
+          {
+            enableHtml: true,
+            closeButton: false,
+            toastClass: "alert alert-success alert-with-icon",
+            positionClass: 'toast-top-center'
+          }
+        );
+        this.regionService.getAllRegions().subscribe(
+          (response : any[]) => {
+            this.regions = response;
+            this.modalReference.close();
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error);
+          }
+        );
+      },
+      (error: HttpErrorResponse) => {
+        this.toastr.error(
+          '<span class="tim-icons icon-alert-circle-exc" [data-notify]="icon"></span> Echec du suppression du région',
+          '',
+          {
+            enableHtml: true,
+            closeButton: false,
+            toastClass: "alert alert-danger alert-with-icon",
+            positionClass: 'toast-top-center'
+          }
+        );
+        return;
+      }
+    );;
+  }
+
+  /**
    * Modifier un région
    * @param form Formulaire du modication du région
    */
@@ -62,7 +106,7 @@ export class CrudRegionComponent implements OnInit {
       },
       (error: HttpErrorResponse) => {
         this.toastr.error(
-          '<span class="tim-icons icon-alert-circle-exc" [data-notify]="icon"></span> Echec de modificaton du région',
+          '<span class="tim-icons icon-alert-circle-exc" [data-notify]="icon"></span> Echec de modification du région',
           '',
           {
             enableHtml: true,
