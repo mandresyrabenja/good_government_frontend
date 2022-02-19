@@ -6,9 +6,14 @@ import { Region } from '../interface/region';
 
 @Injectable()
 export class RegionService {
+
   private baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) {}
+
+  modifyRegion(id: any, region_name: string) : Observable<any> {
+    return this.http.put(this.baseUrl + "/regions/" + id, {}, { params: {"name" : region_name} });
+  }
 
   getAllRegions(): Observable<any[]> {
     return this.http.get<any[]>(this.baseUrl + "/regions");

@@ -46,10 +46,10 @@
       </button>
     </div>
     <div class="modal-body bg-dark">
-        <form action="#" role="form">
+        <form (ngSubmit)="executeModifyRegion(modifyRegionForm)" role="form" #modifyRegionForm="ngForm">
             <div class="form-group">
-                <label for="">Nom</label>
-                <input type="text" class="form-control" id="region_name" name="region_name" value="{{ actualRegion.name }}">
+                <label for="region_name">Nom</label>
+                <input type="text" class="form-control" id="region_name" name="region_name" ngModel>
             </div>
             <button type="submit" class="btn btn-primary">Modifier</button>
         </form>

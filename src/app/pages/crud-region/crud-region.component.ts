@@ -33,6 +33,50 @@ export class CrudRegionComponent implements OnInit {
   }
 
   /**
+   * Modifier un région
+   * @param form Formulaire du modication du région
+   */
+  executeModifyRegion(form: NgForm) {
+    this.regionService.modifyRegion(this.actualRegion.id, form.value.region_name)
+    .subscribe(
+      (response) => {
+        this.toastr.success(
+          '<span class="tim-icons icon-check-2" [data-notify]="icon"></span> Région modifié avec succès',
+          '',
+          {
+            enableHtml: true,
+            closeButton: false,
+            toastClass: "alert alert-success alert-with-icon",
+            positionClass: 'toast-top-center'
+          }
+        );
+        this.regionService.getAllRegions().subscribe(
+          (response : any[]) => {
+            this.regions = response;
+            this.modalReference.close();
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error);
+          }
+        );
+      },
+      (error: HttpErrorResponse) => {
+        this.toastr.error(
+          '<span class="tim-icons icon-alert-circle-exc" [data-notify]="icon"></span> Echec de modificaton du région',
+          '',
+          {
+            enableHtml: true,
+            closeButton: false,
+            toastClass: "alert alert-danger alert-with-icon",
+            positionClass: 'toast-top-center'
+          }
+        );
+        return;
+      }
+    );
+  }
+
+  /**
    * Créer un région vers la base de données
    * @param form Formulaire d'ajout de région
    */
@@ -41,8 +85,6 @@ export class CrudRegionComponent implements OnInit {
       name: form.value.region_name,
       password: form.value.region_password
     };
-
-    console.log(region.name + ' ' + region.password);
 
     this.regionService.createRegion(region)
     .subscribe(
