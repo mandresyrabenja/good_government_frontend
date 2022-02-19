@@ -11,9 +11,9 @@
                 </thead>
                 <tbody>
 
-                    <tr>
-                        <td class="text-center">1</td>
-                        <td>Analamanga</td>
+                    <tr *ngFor="let region of regions; index as i">
+                        <td class="text-center">{{ region.id }}</td>
+                        <td>{{ region.name }}</td>
                         <td class="td-actions text-right">
                             <button type="button" rel="tooltip" class="btn btn-info btn-sm btn-round btn-icon">
                               <i class="tim-icons icon-pencil"></i>
