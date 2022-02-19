@@ -91,7 +91,7 @@ export class CrudRegionComponent implements OnInit {
             positionClass: 'toast-top-center'
           }
         );
-        this.regionService.getAllRegions(0).subscribe(
+        this.regionService.getAllRegions(this.currentPage).subscribe(
           (response : any[]) => {
             this.regions = response;
             this.modalReference.close();
@@ -135,7 +135,7 @@ export class CrudRegionComponent implements OnInit {
             positionClass: 'toast-top-center'
           }
         );
-        this.regionService.getAllRegions(0).subscribe(
+        this.regionService.getAllRegions(this.currentPage).subscribe(
           (response : any[]) => {
             this.regions = response;
             this.modalReference.close();
@@ -184,7 +184,7 @@ export class CrudRegionComponent implements OnInit {
             positionClass: 'toast-top-center'
           }
         );
-        this.regionService.getAllRegions(0).subscribe(
+        this.regionService.getAllRegions(this.currentPage).subscribe(
           (response : any[]) => {
             this.regions = response;
             this.modalReference.close();
