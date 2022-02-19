@@ -11,6 +11,10 @@ export class RegionService {
 
   constructor(private http: HttpClient) {}
 
+  getPageNumber() : Observable<any> {
+    return this.http.get(this.baseUrl + "/regions/page_nb");
+  }
+
   deleteRegion(id) : Observable<any> {
     return this.http.delete(this.baseUrl + "/regions/" + id);
   }
@@ -19,8 +23,8 @@ export class RegionService {
     return this.http.put(this.baseUrl + "/regions/" + id, {}, { params: {"name" : region_name} });
   }
 
-  getAllRegions(): Observable<any[]> {
-    return this.http.get<any[]>(this.baseUrl + "/regions");
+  getAllRegions(pageNumber: number): Observable<any[]> {
+    return this.http.get<any[]>(this.baseUrl + "/regions?page=" + pageNumber);
   }
 
   createRegion(region: Region) : Observable<any>  {

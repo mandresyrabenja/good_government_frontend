@@ -15,13 +15,15 @@ export class CrudRegionComponent implements OnInit {
   actualRegion : any;
   modalReference: any;
   closeResult: string;
+  currentPage : number = 0;
+  pageNumber : number;
 
   constructor(private regionService : RegionService,
     private modalService: NgbModal, private toastr : ToastrService) { }
 
   ngOnInit(): void {
 
-    this.regionService.getAllRegions().subscribe(
+    this.regionService.getAllRegions(0).subscribe(
       (response : any[]) => {
         this.regions = response;
       },
@@ -30,6 +32,45 @@ export class CrudRegionComponent implements OnInit {
       }
     );
 
+    this.regionService.getPageNumber().subscribe(
+      (response : any) => {
+        this.pageNumber = response;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    );
+
+  }
+
+  /**
+   * Page des régions suivant
+   */
+   nextPage() {
+    this.regionService.getAllRegions(this.currentPage+1).subscribe(
+      (response : any[]) => {
+        this.regions = response;
+        this.currentPage++;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    );
+  }
+
+  /**
+   * Page des régions précedent
+   */
+   previousPage() {
+    this.regionService.getAllRegions(this.currentPage-1).subscribe(
+      (response : any[]) => {
+        this.regions = response;
+        this.currentPage--;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    );
   }
 
   /**
@@ -50,7 +91,7 @@ export class CrudRegionComponent implements OnInit {
             positionClass: 'toast-top-center'
           }
         );
-        this.regionService.getAllRegions().subscribe(
+        this.regionService.getAllRegions(0).subscribe(
           (response : any[]) => {
             this.regions = response;
             this.modalReference.close();
@@ -94,7 +135,7 @@ export class CrudRegionComponent implements OnInit {
             positionClass: 'toast-top-center'
           }
         );
-        this.regionService.getAllRegions().subscribe(
+        this.regionService.getAllRegions(0).subscribe(
           (response : any[]) => {
             this.regions = response;
             this.modalReference.close();
@@ -143,7 +184,7 @@ export class CrudRegionComponent implements OnInit {
             positionClass: 'toast-top-center'
           }
         );
-        this.regionService.getAllRegions().subscribe(
+        this.regionService.getAllRegions(0).subscribe(
           (response : any[]) => {
             this.regions = response;
             this.modalReference.close();
