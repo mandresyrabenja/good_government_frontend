@@ -1,7 +1,10 @@
+import { ToastrService } from 'ngx-toastr';
 import { RegionService } from './../../services/regionservice';
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgForm } from '@angular/forms';
+import { Region } from 'src/app/interface/region';
 
 @Component({
   selector: 'app-crud-region',
@@ -14,7 +17,7 @@ export class CrudRegionComponent implements OnInit {
   closeResult: string;
 
   constructor(private regionService : RegionService,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal, private toastr : ToastrService) { }
 
   ngOnInit(): void {
 
@@ -27,6 +30,44 @@ export class CrudRegionComponent implements OnInit {
       }
     );
 
+  }
+
+  addRegion(form: NgForm) {
+    let region : Region = {
+      name: form.value.region_name,
+      password: form.value.region_password
+    };
+
+    console.log(region.name + ' ' + region.password);
+
+    // this.regionService.createRegion(region)
+    // .subscribe(
+    //   (response) => {
+    //     this.toastr.success(
+    //       '<span class="tim-icons icon-check-2" [data-notify]="icon"></span> Nouveau région créé avec succès',
+    //       '',
+    //       {
+    //         enableHtml: true,
+    //         closeButton: false,
+    //         toastClass: "alert alert-success alert-with-icon",
+    //         positionClass: 'toast-top-center'
+    //       }
+    //     );
+    //   },
+    //   (error: HttpErrorResponse) => {
+    //     this.toastr.error(
+    //       '<span class="tim-icons icon-alert-circle-exc" [data-notify]="icon"></span> Echec du création du nouveau région',
+    //       '',
+    //       {
+    //         enableHtml: true,
+    //         closeButton: false,
+    //         toastClass: "alert alert-danger alert-with-icon",
+    //         positionClass: 'toast-top-center'
+    //       }
+    //     );
+    //     return;
+    //   }
+    // );
   }
 
   /**

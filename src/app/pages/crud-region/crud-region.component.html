@@ -64,14 +64,14 @@
     </button>
     </div>
     <div class="modal-body bg-dark">
-        <form action="#" role="form">
+        <form (ngSubmit)="addRegion(createRegionForm)" role="form" #createRegionForm="ngForm">
             <div class="form-group">
                 <label for="">Nom</label>
-                <input type="text" class="form-control" id="region_name" name="region_name">
+                <input type="text" class="form-control" id="region_name" name="region_name" ngModel>
             </div>
             <div class="form-group">
                 <label for="">Mot de passe</label>
-                <input type="password" class="form-control" id="region_password" name="region_password">
+                <input type="password" class="form-control" id="region_password" name="region_password" ngModel>
             </div>
             <button type="submit" class="btn btn-success">Créer</button>
         </form>

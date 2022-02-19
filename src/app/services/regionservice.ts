@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from "@angular/core";
 import { environment } from 'src/environments/environment';
+import { Region } from '../interface/region';
 
 @Injectable()
 export class RegionService {
@@ -12,4 +13,9 @@ export class RegionService {
   getAllRegions(): Observable<any[]> {
     return this.http.get<any[]>(this.baseUrl + "/regions");
   }
+
+  createRegion(region: Region) : Observable<any>  {
+    return this.http.post(this.baseUrl + "/regions", region);
+  }
+
 }
