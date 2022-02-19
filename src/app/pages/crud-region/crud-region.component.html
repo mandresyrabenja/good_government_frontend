@@ -15,7 +15,7 @@
                         <td class="text-center">{{ region.id }}</td>
                         <td>{{ region.name }}</td>
                         <td class="td-actions text-right">
-                            <button type="button" rel="tooltip" class="btn btn-info btn-sm btn-round btn-icon">
+                            <button type="button" (click)="modifyRegion(i, modify_region)" rel="tooltip" class="btn btn-info btn-sm btn-round btn-icon">
                               <i class="tim-icons icon-pencil"></i>
                             </button>
                             <button type="button" rel="tooltip" class="btn btn-danger btn-sm btn-round btn-icon">
@@ -29,3 +29,21 @@
         </div>
     </div>
 </div>
+
+<ng-template #modify_region let-modal>
+    <div class="modal-header bg-dark">
+        Modifier {{ actualRegion.name }}
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="modal.dismiss('Cross click')">
+        <i class=" tim-icons icon-simple-remove"> </i>
+      </button>
+    </div>
+    <div class="modal-body bg-dark">
+        <form action="#" role="form">
+            <div class="form-group">
+                <label for="">Nom</label>
+                <input type="text" class="form-control" id="region_name" name="region_name" value="{{ actualRegion.name }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Modifier</button>
+        </form>
+    </div>
+</ng-template>
