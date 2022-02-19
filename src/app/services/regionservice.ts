@@ -11,6 +11,10 @@ export class RegionService {
 
   constructor(private http: HttpClient) {}
 
+  deleteRegion(id) : Observable<any> {
+    return this.http.delete(this.baseUrl + "/regions/" + id);
+  }
+
   modifyRegion(id: any, region_name: string) : Observable<any> {
     return this.http.put(this.baseUrl + "/regions/" + id, {}, { params: {"name" : region_name} });
   }
