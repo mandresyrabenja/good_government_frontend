@@ -39,6 +39,13 @@ export class CrudRegionComponent implements OnInit {
     this.open(content);
   }
 
+  /**
+   * Ouvrir le modal pour créer un région
+   */
+   createRegion(content) {
+    this.open(content);
+  }
+
   open(content) {
     this.modalReference = this.modalService.open(content, {centered: false, size: 'md'});
     this.modalReference.result.then(
