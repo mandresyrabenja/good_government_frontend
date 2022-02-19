@@ -32,6 +32,10 @@ export class CrudRegionComponent implements OnInit {
 
   }
 
+  /**
+   * Créer un région vers la base de données
+   * @param form Formulaire d'ajout de région
+   */
   addRegion(form: NgForm) {
     let region : Region = {
       name: form.value.region_name,
@@ -40,34 +44,43 @@ export class CrudRegionComponent implements OnInit {
 
     console.log(region.name + ' ' + region.password);
 
-    // this.regionService.createRegion(region)
-    // .subscribe(
-    //   (response) => {
-    //     this.toastr.success(
-    //       '<span class="tim-icons icon-check-2" [data-notify]="icon"></span> Nouveau région créé avec succès',
-    //       '',
-    //       {
-    //         enableHtml: true,
-    //         closeButton: false,
-    //         toastClass: "alert alert-success alert-with-icon",
-    //         positionClass: 'toast-top-center'
-    //       }
-    //     );
-    //   },
-    //   (error: HttpErrorResponse) => {
-    //     this.toastr.error(
-    //       '<span class="tim-icons icon-alert-circle-exc" [data-notify]="icon"></span> Echec du création du nouveau région',
-    //       '',
-    //       {
-    //         enableHtml: true,
-    //         closeButton: false,
-    //         toastClass: "alert alert-danger alert-with-icon",
-    //         positionClass: 'toast-top-center'
-    //       }
-    //     );
-    //     return;
-    //   }
-    // );
+    this.regionService.createRegion(region)
+    .subscribe(
+      (response) => {
+        this.toastr.success(
+          '<span class="tim-icons icon-check-2" [data-notify]="icon"></span> Nouveau région créé avec succès',
+          '',
+          {
+            enableHtml: true,
+            closeButton: false,
+            toastClass: "alert alert-success alert-with-icon",
+            positionClass: 'toast-top-center'
+          }
+        );
+        this.regionService.getAllRegions().subscribe(
+          (response : any[]) => {
+            this.regions = response;
+            this.modalReference.close();
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error);
+          }
+        );
+      },
+      (error: HttpErrorResponse) => {
+        this.toastr.error(
+          '<span class="tim-icons icon-alert-circle-exc" [data-notify]="icon"></span> Echec du création du nouveau région',
+          '',
+          {
+            enableHtml: true,
+            closeButton: false,
+            toastClass: "alert alert-danger alert-with-icon",
+            positionClass: 'toast-top-center'
+          }
+        );
+        return;
+      }
+    );
   }
 
   /**
