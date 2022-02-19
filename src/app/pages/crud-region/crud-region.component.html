@@ -1,9 +1,79 @@
 <div class="content">
     <div class="row">
-        <div class="col-xs-12">
-            <p>
-                Atsofoy eto ny affichage CRUD régions.
-            </p>
+        <div class="col-md-3">Créer un région</div>
+        <div class="col-md-1">
+            <button class="btn btn-success" (click)="createRegion(add_region)">
+              <i class="tim-icons icon-simple-add"></i>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th>Nom</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let region of regions; index as i">
+                        <td class="text-center">{{ region.id }}</td>
+                        <td>{{ region.name }}</td>
+                        <td class="td-actions text-right">
+                            <button type="button" (click)="modifyRegion(i, modify_region)" rel="tooltip" class="btn btn-info btn-sm btn-round btn-icon">
+                              <i class="tim-icons icon-pencil"></i>
+                            </button>
+                            <button type="button" (click)="deleteRegion(i)" rel="tooltip" class="btn btn-danger btn-sm btn-round btn-icon">
+                              <i class="tim-icons icon-simple-remove"></i>
+                            </button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
+<ng-template #modify_region let-modal>
+    <div class="modal-header bg-dark">
+        Modifier {{ actualRegion.name }}
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="modal.dismiss('Cross click')">
+        <i class=" tim-icons icon-simple-remove"> </i>
+      </button>
+    </div>
+    <div class="modal-body bg-dark">
+        <form (ngSubmit)="executeModifyRegion(modifyRegionForm)" role="form" #modifyRegionForm="ngForm">
+            <div class="form-group">
+                <label for="region_name">Nom</label>
+                <input type="text" class="form-control" id="region_name" name="region_name" ngModel>
+            </div>
+            <button type="submit" class="btn btn-primary">Modifier</button>
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #add_region let-modal>
+    <div class="modal-header bg-dark">
+        Créer un région
+        <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="modal.dismiss('Cross click')">
+      <i class=" tim-icons icon-simple-remove"> </i>
+    </button>
+    </div>
+    <div class="modal-body bg-dark">
+        <form (ngSubmit)="addRegion(createRegionForm)" role="form" #createRegionForm="ngForm">
+            <div class="form-group">
+                <label for="">Nom</label>
+                <input type="text" class="form-control" id="region_name" name="region_name" ngModel>
+            </div>
+            <div class="form-group">
+                <label for="">Mot de passe</label>
+                <input type="password" class="form-control" id="region_password" name="region_password" ngModel>
+            </div>
+            <button type="submit" class="btn btn-success">Créer</button>
+        </form>
+    </div>
+</ng-template>

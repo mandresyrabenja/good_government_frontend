@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
   }
 
   loginFailed() {
-    console.log('a');
     this.toastr.error(
       '<span class="tim-icons icon-alert-circle-exc" [data-notify]="icon"></span> Login ou mot de passe incorrect',
       '',

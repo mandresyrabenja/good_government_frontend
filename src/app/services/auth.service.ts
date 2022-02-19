@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 
 @Injectable()
 export class AuthService {
-  private baseUrl = "http://localhost:8080";
+  private baseUrl = "https://good-government.herokuapp.com";
 
   public isAuth = false;
 

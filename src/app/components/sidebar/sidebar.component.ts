@@ -13,13 +13,13 @@ export const ROUTES: RouteInfo[] = [
     icon: "icon-chart-pie-36",
     class: ""
   }
-  // ,
-  // {
-  //   path: "crud-region",
-  //   title: "Régions",
-  //   icon: "icon-world",
-  //   class: ""
-  // }
+  ,
+  {
+    path: "crud-region",
+    title: "Régions",
+    icon: "icon-world",
+    class: ""
+  }
   ,
   {
     path: "assign-report",

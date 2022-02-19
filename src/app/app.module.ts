@@ -21,6 +21,7 @@ import { LoginComponent } from './layouts/login/login.component';
 import { AuthService } from "./services/auth.service";
 import AuthGuard from "./services/auth-guard.service";
 import { ReportService } from "./services/report.service";
+import { RegionService } from "./services/regionservice";
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -38,6 +39,7 @@ import { ReportService } from "./services/report.service";
     AuthService,
     AuthGuard,
     ReportService,
+    RegionService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
